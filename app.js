@@ -1,12 +1,11 @@
 const calculator = document.querySelector('.calculator');
 const keys = document.querySelector('.calculator__keys');
 const display = document.querySelector('.calculator__display');
-
+var previousKeyType = calculator.dataset.previousKeyType;
 
 keys.addEventListener('click', function(e) {
     const key = e.target;
     const action = key.dataset.action;
-    let previousKeyType = calculator.dataset.previousKeyType;
 
     if (e.target.matches('button')) {
         if (
@@ -21,16 +20,12 @@ keys.addEventListener('click', function(e) {
             calculator.dataset.operator = action;
         } 
         if(!action){
-            checknumber();
-            // if (display.textContent === "0"  ){
-            //    display.textContent = key.textContent;
-            // } else if (previousKeyType === 'operator'){
-            //     cosole.log("previous Key is an operator")
-            //     // display.textContent = key.textContent;
-            // } else {
-            //     display.textContent += key.textContent;
-            // }
-            // previousKeyType = 'number';
+            if (previousKeyType === 'operator' || display.textContent === "0"  ){
+               display.textContent = key.textContent;
+            }else {
+                display.textContent += key.textContent;
+            }
+            previousKeyType = 'number';
         };
         if (action === 'decimal') {
             if (!display.textContent.includes('.')) {
@@ -45,7 +40,6 @@ keys.addEventListener('click', function(e) {
             const firstValue = calculator.dataset.firstValue;
             const operator = calculator.dataset.operator;
             const secondValue = display.textContent ;   
-            var num2 = display.textContent;
             previousKeyType = 'calculate';
             display.textContent = calculate(firstValue, operator, secondValue)
         }
@@ -58,20 +52,7 @@ keys.addEventListener('click', function(e) {
 
 
         }
-function checknumber(){
-            if (display.textContent === "0"  ){
-               display.textContent = key.textContent;
-            } else if (previousKeyType === 'operator'){
-                cosole.log("previous Key is an operator")
-                // display.textContent = key.textContent;
-            } else {
-                display.textContent += key.textContent;
-            }
-            previousKeyType = 'number';
-}
-     console.log(previousKeyType)
 })  
-
 
 
 function calculate(firstValue ,  operator , secondValue) {
@@ -93,7 +74,7 @@ function reset(){
     display.textContent = 0;
     num1 = 0;
     num2 = 0;
-        // Remove .is-depressed class from all keys
-    // Array.from(key.parentNode.children)
-    //   .forEach(k => k.classList.remove('is-depressed'))
+    // Remove .is-depressed class from all keys
+    Array.from(key.parentNode.children)
+      .forEach(k => k.classList.remove('is-depressed'))
 }
