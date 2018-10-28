@@ -74,7 +74,4 @@ function reset(){
     display.textContent = 0;
     num1 = 0;
     num2 = 0;
-    // Remove .is-depressed class from all keys
-    Array.from(key.parentNode.children)
-      .forEach(k => k.classList.remove('is-depressed'))
 }
